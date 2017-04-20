@@ -1,0 +1,8 @@
+<form method="{{ method|default('get') }}" style="display:inline-block;" action="{{ action }}">
+  <span class="yui-button yui-submit-button submit-button primary">
+    <button type="submit" value="Submit">{{ name }}</button>
+{% for name, value in inputs|default({})|dictsort %}
+    <input type="hidden" name="{{ name }}" value="{{ value }}">
+{% endfor %}
+  </span>
+</form>

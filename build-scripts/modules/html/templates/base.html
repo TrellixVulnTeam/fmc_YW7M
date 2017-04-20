@@ -1,0 +1,21 @@
+{% macro li_html(href='', caption='', text='', head='') -%}
+    <li>{%if href %}{{ head }}<a href="{{ href }}">{{ caption }}</a> {% endif %}{{ text|replace('\n', '\n<br>') }}</li>
+{%- endmacro %}
+{% if title %}
+    {% from 'title.html' import form %}
+    {{- form(title, title_color) }}
+{% endif %}
+<ul>
+{% if not items %}
+    {{- li_html(text=none_message) }}
+{% elif items is mapping %}
+    {% for item, sub_items in items|dictsort %}
+        {{- li_html(text=item) }}
+<ul>
+        {{- "\n" }}{{ iter_item(sub_items) -}}
+</ul>
+    {% endfor %}
+{% else %}
+    {{- iter_item(items) -}}
+{% endif %}
+</ul>

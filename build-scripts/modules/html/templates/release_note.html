@@ -1,0 +1,14 @@
+{% from 'title.html' import form_h1, form_h2, form_h3 %}
+
+{{ form_h1("%s RELEASE NOTE %s"|format(product_name|upper, to_build.name)) }}
+
+{{ form_h2("Description") }}
+<p>Release is available at: <a href="{{ to_build.url }}">{{ to_build.name }}</a></p>
+
+{{ form_h2("Integrated contributions since previous release %s"|format(from_build.name)) }}
+
+{{ form_h3("commit list per git project:") }}
+{% set items = commit_items%}
+{% include "list.html" %}
+
+<br>

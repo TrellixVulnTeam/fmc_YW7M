@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% macro iter_item(jiras) %}
+    {% for jira in jiras|sort %}
+        {% if jira.exists == True %}
+            {{- li_html(href=jira.url,
+                        caption="%s - %s"|format(jira.key, jira.summary),
+                        text=" (%s)"|format(jira.status)) }}
+        {% else %}
+            {# jira.exists is either False or None here #}
+            {% if jira.exists == False %}
+                {% set text = "(unknown issue)" %}
+            {% endif %}
+            {{- li_html(href=jira.url, caption=jira.key, text=text) }}
+        {% endif %}
+    {% endfor %}
+{% endmacro %}

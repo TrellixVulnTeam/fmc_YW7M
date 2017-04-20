@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% macro iter_item(patches) %}
+    {% for patch in patches %}
+        {% if patch.url is not none %}
+            {{- li_html(href=patch.url, caption=patch.text()) }}
+        {% elif patch %}
+            {{- li_html(text=patch.text()) }}
+        {% endif %}
+    {% endfor %}
+{% endmacro %}

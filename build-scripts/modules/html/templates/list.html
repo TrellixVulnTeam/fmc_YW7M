@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% macro iter_item(items) %}
+    {% if sort != False %}
+        {% set items=items|sort %}
+    {% endif %}
+    {% if caption_from %}
+        {% set caption_from = caption_from + '/' %}
+    {% else %}
+        {% set caption_from = '/' %}
+    {% endif %}
+    {% for item in items %}
+        {% if url %}
+            {{- li_html(href="%s/%s"|format(url, item.split(' ')[0]),
+                        caption=item) }}
+        {% elif detect_url == True and 'http' in item %}
+            {% set href = "http%s"|format(item.split('http')[1].split()[0]) %}
+            {{- li_html(href=href, caption=href.rstrip('/').split(caption_from)[-1],
+                        head=item.split(href)[0],
+                        text=item.split(href)[1]) }}
+        {% else %}
+            {{- li_html(text=item) }}
+        {% endif %}
+    {% endfor %}
+{% endmacro %}

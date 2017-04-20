@@ -1,0 +1,37 @@
+{% include "title" %}
+{% if data %}
+    <table class="pane bigtable">
+        <tr>
+        <th class="pane-header">Targets</th>
+        {% for target in data.keys() %}
+            <th class="pane-header">{{ target }}</th>
+        {% endfor %}
+        </tr>
+        <tr>
+        <th class="pane-header">Footprint</th>
+        {% for target, info in data.iteritems() %}
+            <td class="pane">
+            {% for filename, data in info.iteritems() %}
+                <b>{{ filename }}:</b>
+                <ul>
+                {% for elem, value in data.iteritems() %}
+                    <li>{{ elem }}: {{ value }}</li>
+                {% endfor %}
+                </ul>
+            {% endfor %}
+            </td>
+        {% endfor %}
+        </tr>
+    </table>
+{% else %}
+    <table class="pane bigtable">
+        <tr>
+        <th class="pane-header">Targets</th>
+        <th class="pane-header">None</th>
+        </tr>
+        <tr>
+        <th class="pane-header">Footprint</th>
+        <td class="pane">Empty</td>
+        </tr>
+    </table>
+{% endif %}

@@ -1,0 +1,15 @@
+{% macro form(title, color) %}
+    {% if color -%}
+        <font color={{ color }}>{{ title[0]|upper() + title[1:] }}</font>
+    {%- else -%}
+        {{ title|capitalize() }}
+    {%- endif %}
+{% endmacro %}
+
+{% macro form_heading(title, heading, color) -%}
+    <{{ heading }}>{{ form(title, color) }}</{{ heading }}>
+{%- endmacro %}
+
+{% macro form_h1(title) -%} {{ form_heading(title, 'h1', color='#0040FF') }}<br> {%- endmacro %}
+{% macro form_h2(title) -%} {{ form_heading(title, 'h2', color='#0040FF') }} {%- endmacro %}
+{% macro form_h3(title) -%} {{ form_heading(title, 'h3') }} {%- endmacro %}
